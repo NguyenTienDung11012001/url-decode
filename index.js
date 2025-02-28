@@ -46,3 +46,23 @@ function clearInput() {
     document.getElementById('userInput').value = ''; // Xóa nội dung ô input
     document.getElementById('output').innerHTML = 'Kết quả sẽ hiển thị ở đây'; // Xóa nội dung output
 }
+
+function pasteFromClipboard() {
+    // Kiểm tra xem trình duyệt có hỗ trợ Clipboard API không
+    if (!navigator.clipboard) {
+        alert('Trình duyệt không hỗ trợ dán từ clipboard. Vui lòng dán thủ công bằng Ctrl+V hoặc nhấp chuột phải.');
+        return;
+    }
+
+    // Sử dụng Clipboard API để đọc nội dung từ clipboard
+    navigator.clipboard.readText()
+        .then(text => {
+            // Điền nội dung từ clipboard vào ô input
+            document.getElementById('userInput').value = text;
+        })
+        .catch(err => {
+            // Xử lý lỗi nếu quyền bị từ chối hoặc có vấn đề khác
+            alert('Không thể truy cập clipboard. Vui lòng cấp quyền hoặc dán thủ công.');
+            console.error('Lỗi khi dán từ clipboard:', err);
+        });
+}
