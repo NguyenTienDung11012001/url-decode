@@ -66,3 +66,41 @@ function pasteFromClipboard() {
             console.error('Lỗi khi dán từ clipboard:', err);
         });
 }
+
+function fixLink() {
+    let input = document.getElementById('userInput').value;
+    let fixedInput = input;
+
+    // 1. Protocol fixes
+    fixedInput = fixedInput.replace(/hxxps/gi, 'https')
+                           .replace(/hxxp/gi, 'http')
+                           .replace(/\[:\/\/\]|\[:\]\/\//gi, '://');
+
+    // 2. Dot fixes (comprehensive)
+    fixedInput = fixedInput.replace(/\[\.\]|\(\.\)|\[dot\]|\(dot\)|\{\.\}/gi, '.');
+
+    // 3. At symbol fixes
+    fixedInput = fixedInput.replace(/\[at\]|\(at\)/gi, '@');
+    
+    // 4. Slash fixes (replace backslashes with forward slashes)
+    fixedInput = fixedInput.replace(/\\/g, '/');
+
+    // 5. Decode URL-encoded characters (e.g., %2F -> /)
+    try {
+        fixedInput = decodeURIComponent(fixedInput);
+    } catch (e) {
+        console.error("Could not decode URI component: ", e);
+        // If decoding fails, we can still proceed with the partially fixed string
+    }
+
+    // Update the textarea and the output
+    document.getElementById('userInput').value = fixedInput;
+    const output = document.getElementById('output');
+    const isValidUrl = /^https?:\/\//i.test(fixedInput);
+
+    if (isValidUrl) {
+        output.innerHTML = `<a href="${fixedInput}" target="_blank">${fixedInput}</a>`;
+    } else {
+        output.innerHTML = `<span>${fixedInput}</span>`;
+    }
+}
