@@ -103,6 +103,11 @@ button:hover {
   background-image: linear-gradient(to right, #ffc107, #ff8f00, #ffc107);
 }
 
+.btn-copy {
+    background-image: linear-gradient(to right, #17a2b8, #117a8b, #17a2b8);
+    margin-top: 10px;
+}
+
 #output {
   width: 100%;
   padding: 20px;

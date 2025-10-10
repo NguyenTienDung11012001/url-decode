@@ -110,10 +110,39 @@ function convertVietnamese() {
     let output = document.getElementById('output');
 
     // Convert Vietnamese to non-accented
-    let nonAccented = input.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    let nonAccented = input.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, 'd').replace(/Đ/g, 'D');
 
     // Replace spaces with hyphens and convert to lowercase
     let slug = nonAccented.replace(/\s+/g, '-').toLowerCase();
 
     output.innerHTML = `<span>${slug}</span>`;
+}
+
+function copyOutput() {
+    const output = document.getElementById('output');
+    const textToCopy = output.innerText;
+
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert('Đã sao chép kết quả vào clipboard!');
+        }).catch(err => {
+            console.error('Không thể sao chép:', err);
+            alert('Sao chép thất bại!');
+        });
+    } else {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = textToCopy;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            alert('Đã sao chép kết quả vào clipboard!');
+        } catch (err) {
+            console.error('Fallback: Không thể sao chép:', err);
+            alert('Sao chép thất bại!');
+        }
+        document.body.removeChild(textArea);
+    }
 }
