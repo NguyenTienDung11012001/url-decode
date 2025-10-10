@@ -99,6 +99,10 @@ button:hover {
   background-image: linear-gradient(to right, #6a11cb, #2575fc, #6a11cb);
 }
 
+.btn-convert {
+  background-image: linear-gradient(to right, #ffc107, #ff8f00, #ffc107);
+}
+
 #output {
   width: 100%;
   padding: 20px;

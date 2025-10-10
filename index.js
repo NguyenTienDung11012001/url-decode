@@ -104,3 +104,16 @@ function fixLink() {
         output.innerHTML = `<span>${fixedInput}</span>`;
     }
 }
+
+function convertVietnamese() {
+    let input = document.getElementById('userInput').value.trim();
+    let output = document.getElementById('output');
+
+    // Convert Vietnamese to non-accented
+    let nonAccented = input.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    // Replace spaces with hyphens and convert to lowercase
+    let slug = nonAccented.replace(/\s+/g, '-').toLowerCase();
+
+    output.innerHTML = `<span>${slug}</span>`;
+}
