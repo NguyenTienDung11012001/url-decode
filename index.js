@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("btnPaste").addEventListener("click", pasteFromClipboard);
+  document.getElementById("btnRemove").addEventListener("click", removeSpaces);
+  document.getElementById("btnDecode").addEventListener("click", hexDecode);
+  document.getElementById("btnFix").addEventListener("click", fixLink);
+  document.getElementById("btnConvert").addEventListener("click", convertVietnamese);
+  document.getElementById("btnClear").addEventListener("click", clearInput);
+  document.getElementById("btnCopy").addEventListener("click", copyOutput);
+});
+
 function removeSpaces() {
     // Lấy giá trị từ ô input
     let input = document.getElementById('userInput').value;
