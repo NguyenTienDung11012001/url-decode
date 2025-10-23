@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "URL Decode & Tools",
+  "version": "1.0",
+  "description": "Công cụ decode URL, hex và xử lý text tiện lợi.",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "URL Decode & Tools"
+  },
+  "permissions": ["clipboardRead", "clipboardWrite"],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}
