@@ -134,10 +134,8 @@ function copyOutput() {
 
     if (navigator.clipboard) {
         navigator.clipboard.writeText(textToCopy).then(() => {
-            alert('Đã sao chép kết quả vào clipboard!');
         }).catch(err => {
             console.error('Không thể sao chép:', err);
-            alert('Sao chép thất bại!');
         });
     } else {
         // Fallback for older browsers
@@ -146,13 +144,6 @@ function copyOutput() {
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
-        try {
-            document.execCommand('copy');
-            alert('Đã sao chép kết quả vào clipboard!');
-        } catch (err) {
-            console.error('Fallback: Không thể sao chép:', err);
-            alert('Sao chép thất bại!');
-        }
         document.body.removeChild(textArea);
     }
 }
