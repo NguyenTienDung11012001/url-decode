@@ -58,23 +58,34 @@ function clearInput() {
 }
 
 function pasteFromClipboard() {
-    // Kiểm tra xem trình duyệt có hỗ trợ Clipboard API không
-    if (!navigator.clipboard) {
-        alert('Trình duyệt không hỗ trợ dán từ clipboard. Vui lòng dán thủ công bằng Ctrl+V hoặc nhấp chuột phải.');
-        return;
-    }
+    // // Kiểm tra xem trình duyệt có hỗ trợ Clipboard API không
+    // if (!navigator.clipboard) {
+    //     alert('Trình duyệt không hỗ trợ dán từ clipboard. Vui lòng dán thủ công bằng Ctrl+V hoặc nhấp chuột phải.');
+    //     return;
+    // }
 
-    // Sử dụng Clipboard API để đọc nội dung từ clipboard
-    navigator.clipboard.readText()
-        .then(text => {
-            // Điền nội dung từ clipboard vào ô input
-            document.getElementById('userInput').value = text;
-        })
-        .catch(err => {
-            // Xử lý lỗi nếu quyền bị từ chối hoặc có vấn đề khác
-            alert('Không thể truy cập clipboard. Vui lòng cấp quyền hoặc dán thủ công.');
-            console.error('Lỗi khi dán từ clipboard:', err);
-        });
+    // // Sử dụng Clipboard API để đọc nội dung từ clipboard
+    // navigator.clipboard.readText()
+    //     .then(text => {
+    //         // Điền nội dung từ clipboard vào ô input
+    //         document.getElementById('userInput').value = text;
+    //     })
+    //     .catch(err => {
+    //         // Xử lý lỗi nếu quyền bị từ chối hoặc có vấn đề khác
+    //         alert('Không thể truy cập clipboard. Vui lòng cấp quyền hoặc dán thủ công.');
+    //         console.error('Lỗi khi dán từ clipboard:', err);
+    //     });
+
+    let input = document.getElementById('userInput').value.trim();
+    let output = document.getElementById('output');
+
+    // Convert Vietnamese to non-accented
+    let nonAccented = input.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, 'd').replace(/Đ/g, 'D');
+
+    // Replace spaces with hyphens and convert to lowercase
+    let slug = nonAccented.replace(/\s+/g, '_').toLowerCase();
+
+    output.innerHTML = `<span>${slug}</span>`;
 }
 
 function fixLink() {
